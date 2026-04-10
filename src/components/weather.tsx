@@ -1,8 +1,7 @@
 import {useAppSelector} from "../app/hooks.ts";
-import type {WeatherInfo} from "../utils/types";
 
 const Weather = () => {
-    const weather: WeatherInfo = useAppSelector(state => state.weather)
+    const weather = useAppSelector(state => state.weather)
     const message = useAppSelector(state => state.message)
 
     if (message) {

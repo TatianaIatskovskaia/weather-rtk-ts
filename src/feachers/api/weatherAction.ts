@@ -1,23 +1,18 @@
 import {apiKey, baseURL} from "../../utils/const.ts";
-import {putWeather} from "../weather/weatherSlice.ts";
-import {setMessage} from "../message/messageSlice.ts";
-import type {AppDispatch} from "../../app/store.ts";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
-export const fetchWeather = (city: string) => async (dispatch: AppDispatch) => {
-    try{
-    const res = await fetch(`${baseURL}?q=${city}&appid=${apiKey}&units=metric`)
-    const data = await res.json();
-    dispatch(putWeather({
-        country: data.sys.country,
-        city: data.name,
-        temp: data.main.temp,
-        pressure: data.main.pressure,
-        sunset: data.sys.sunset * 1000,
-    }))
-    dispatch(setMessage(''))
-    } catch (e) {
-        console.log(e)
-        dispatch(setMessage('Enter correct city name'))
-        dispatch(putWeather({}))
+
+export const fetchWeather = createAsyncThunk(
+    'weather/fetchWeather',
+    async (city: string) => {
+        const res = await fetch(`${baseURL}?q=${city}&appid=${apiKey}&units=metric`)
+        const data = await res.json();
+        return {
+            city: data.name,
+            country: data.sys.country,
+            temp: data.main.temp,
+            pressure: data.main.pressure,
+            sunset: data.sys.sunset * 1000,
+        }
     }
-};
+)
