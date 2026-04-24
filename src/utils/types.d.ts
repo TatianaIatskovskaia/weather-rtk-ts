@@ -5,3 +5,15 @@ export interface WeatherInfo {
     pressure: number;
     sunset: number;
 }
+
+export interface WeatherInfoResponse {
+    name: string;
+    sys: {
+        country: string;
+        sunset: number;
+    };
+    main: {
+        temp: number;
+        pressure: number;
+    }
+}

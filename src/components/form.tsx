@@ -1,7 +1,7 @@
-import {fetchWeather} from "../feachers/api/weatherAction.ts";
 import {useState} from "react";
 import {useAppDispatch} from "../app/hooks.ts";
 import type {SubmitEvent} from "react";
+import {putCity} from "../feachers/city/citySlice.ts";
 
 const Form = () => {
     const dispatch = useAppDispatch();
@@ -9,7 +9,7 @@ const Form = () => {
 
     const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
-        dispatch(fetchWeather(city))
+        dispatch(putCity(city))
         setCity('')
     }
 
