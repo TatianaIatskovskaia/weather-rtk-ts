@@ -9,7 +9,7 @@ const Form = () => {
 
     const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
-        dispatch(putCity(city))
+        dispatch(putCity(city.toLowerCase().trim()))
         setCity('')
     }
 
