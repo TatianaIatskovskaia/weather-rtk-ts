@@ -4,7 +4,13 @@ import {useGetWeatherByCityQuery} from "../feachers/api/weatherAction.ts";
 const Weather = () => {
     const city = useAppSelector(state => state.city)
 
-    const {data, error, isLoading} = useGetWeatherByCityQuery(city)
+    const {data, error, isLoading} = useGetWeatherByCityQuery(city, {
+        skip: !city,
+        // refetchOnMountOrArgChange: true,
+        refetchOnFocus: true,
+        pollingInterval: 1000 * 60 * 60, //интервал повторения запроса
+        skipPollingIfUnfocused: true, // если не в фокусе, то не надо делать поллинг
+    })
 
     if (!city) {
         return <div className={'infoWeather'}>Enter city name</div>
